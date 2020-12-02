@@ -6,7 +6,12 @@
 
 . $(dirname $0)/commons.sh
 
-print N "This script runs functiona tests"
+if [ -f /opt/qt515/bin/qt515-env.sh ]; then
+  /opt/qt515/bin/qt515-env.sh
+  export PATH="$(npm bin):$PATH"
+fi
+
+print N "This script runs functional tests"
 print N ""
 
 if [ "$1" == "" ] || ! [ -f "$1" ]; then
@@ -20,12 +25,12 @@ if ! [ -d "src" ] || ! [ -d "tests" ]; then
 fi
 
 printn Y "Retrieving mozillavpn version... "
-$1 -v 2>/dev/null || die "Failed."
+$1 -v &>/dev/null || die "Failed."
 print G "done."
 
 for i in tests/functional/test*; do
   print Y "Running the app..."
-  $1 &>/dev/null &
+  $1 & #&>/dev/null &
   PID=$!
   print G "done."
 

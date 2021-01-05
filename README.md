@@ -19,6 +19,10 @@ following dependencies:
 - wireguard-tools >=1.0.20200513
 - resolvconf >= 1.82
 
+To install, including dependencies, on Ubuntu:
+
+    sudo apt install libgl1-mesa-glx libxcb-xtest0 libegl1-mesa libgl-dev libpolkit-gobject-1-dev wireguard wireguard-tools resolvconf
+
 #### QT5
 
 Qt5 can be installed in a number of ways:

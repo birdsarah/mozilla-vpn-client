@@ -30,6 +30,9 @@ Qt5 can be installed in a number of ways:
 - use a linux package manager
 - compile Qt5 (dinamically or statically).
 
+If using the Qt Online Installer, make sure the components Qt Charts and Qt Network Authorization are selected for
+installation.
+
 To build QT5 statically on Ubuntu/Debian, go to the root directory of this project and follow these steps:
 
 ```

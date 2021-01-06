@@ -18,9 +18,7 @@ On MacOS and iOS, this project depends on several files provided by the
 terms of the MIT Public License (*MIT*), a copy of which is [available
 here](https://opensource.org/licenses/MIT) and a copy is provided below.
 
-The Linux release of this project also relies on several files from the
-[WireGuard Tools](https://github.com/WireGuard/wireguard-tools/) repository,
-as well as the FreeDesktop project's [polkit
+The Linux release of this project also relies on several files from the FreeDesktop project's [polkit
 library](https://gitlab.freedesktop.org/polkit/polkit/), all of which are
 provided under the terms of the Lesser GNU Public License 2.0 (*LGPL-2.0*). A
 copy of the LGPL-2.0 is [available

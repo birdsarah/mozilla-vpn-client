@@ -15,8 +15,6 @@ following dependencies:
 
 - Qt5 >= 5.15.0
 - libpolkit-gobject-1-dev >=0.105
-- wireguard >=1.0.20200513
-- wireguard-tools >=1.0.20200513
 - resolvconf >= 1.82
 
 #### QT5

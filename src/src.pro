@@ -260,7 +260,6 @@ else:linux:!android {
 
     # The daemon source code:
     SOURCES += \
-            ../3rdparty/wireguard-tools/contrib/embeddable-wg-library/wireguard.c \
             daemon.cpp \
             platforms/linux/daemon/dbusservice.cpp \
             platforms/linux/daemon/linuxdaemon.cpp \
@@ -268,7 +267,6 @@ else:linux:!android {
             wgquickprocess.cpp
 
     HEADERS += \
-            ../3rdparty/wireguard-tools/contrib/embeddable-wg-library/wireguard.h \
             daemon.h \
             platforms/linux/daemon/dbusservice.h \
             platforms/linux/daemon/polkithelper.h \

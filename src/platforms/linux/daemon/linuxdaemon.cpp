@@ -3,7 +3,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 #include "command.h"
-#include "dbusservice.h"
 #include "dbus_adaptor.h"
 #include "leakdetector.h"
 #include "logger.h"
@@ -27,28 +26,19 @@ class CommandLinuxDaemon final : public Command {
     Q_ASSERT(!tokens.isEmpty());
 
     return runCommandLineApp([&]() {
-      DBusService* dbus = new DBusService(qApp);
-      DbusAdaptor* adaptor = new DbusAdaptor(dbus);
-      dbus->setAdaptor(adaptor);
 
       QDBusConnection connection = QDBusConnection::systemBus();
       logger.log() << "Connecting to DBus...";
 
-      if (!connection.registerService("org.mozilla.vpn.dbus") ||
-          !connection.registerObject("/", dbus)) {
+      if (!connection.registerService("org.mozilla.vpn.dbus")) {
         logger.log() << "Connection failed - name:"
                      << connection.lastError().name()
                      << "message:" << connection.lastError().message();
         return 1;
       }
 
-      if (!dbus->checkInterface()) {
-        return 1;
-      }
-
       SignalHandler sh;
       QObject::connect(&sh, &SignalHandler::quitRequested, [&]() {
-        dbus->deactivate();
         qApp->quit();
       });
 

@@ -265,6 +265,7 @@ else:linux:!android {
             platforms/linux/daemon/dbusservice.cpp \
             platforms/linux/daemon/linuxdaemon.cpp \
             platforms/linux/daemon/polkithelper.cpp \
+            platforms/linux/daemon/nos_wgquickprocess.cpp \
             wgquickprocess.cpp
 
     HEADERS += \
@@ -272,6 +273,7 @@ else:linux:!android {
             daemon.h \
             platforms/linux/daemon/dbusservice.h \
             platforms/linux/daemon/polkithelper.h \
+            platforms/linux/daemon/nos_wgquickprocess.h \
             wgquickprocess.h
 
     isEmpty(PREFIX) {

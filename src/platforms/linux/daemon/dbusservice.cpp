@@ -8,7 +8,7 @@
 #include "logger.h"
 #include "loghandler.h"
 #include "polkithelper.h"
-#include "wgquickprocess.h"
+#include "nos_wgquickprocess.h"
 
 #include <QCoreApplication>
 #include <QJsonDocument>

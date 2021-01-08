@@ -27,6 +27,7 @@ class CommandLinuxDaemon final : public Command {
     Q_ASSERT(!tokens.isEmpty());
 
     return runCommandLineApp([&]() {
+      logger.log() << "SAB - 1";
       DBusService* dbus = new DBusService(qApp);
       DbusAdaptor* adaptor = new DbusAdaptor(dbus);
       dbus->setAdaptor(adaptor);

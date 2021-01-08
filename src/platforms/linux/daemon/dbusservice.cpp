@@ -62,6 +62,7 @@ QString DBusService::version() {
 }
 
 bool DBusService::activate(const QString& jsonConfig) {
+  logger.log() << "SAB - 2";
   logger.log() << "Activate";
 
   if (!PolkitHelper::instance()->checkAuthorization(
@@ -130,6 +131,7 @@ QString DBusService::getLogs() {
 }
 
 bool DBusService::run(Op op, const Config& config) {
+  logger.log() << "SAB - 3";
   return WgQuickProcess::run(
       op, config.m_privateKey, config.m_deviceIpv4Address,
       config.m_deviceIpv6Address, config.m_serverIpv4Gateway,

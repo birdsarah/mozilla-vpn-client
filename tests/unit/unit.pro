@@ -105,6 +105,7 @@ SOURCES += \
     ../../src/tasks/adddevice/taskadddevice.cpp \
     ../../src/tasks/function/taskfunction.cpp \
     ../../src/timersingleshot.cpp \
+    ../../src/wgquickprocess.cpp \
     main.cpp \
     moccontroller.cpp \
     mocmozillavpn.cpp \
@@ -118,7 +119,8 @@ SOURCES += \
     testreleasemonitor.cpp \
     teststatusicon.cpp \
     testtasks.cpp \
-    testtimersingleshot.cpp
+    testtimersingleshot.cpp \
+    testwgquickprocess.cpp
 
 # Platform-specific: Linux
 linux {

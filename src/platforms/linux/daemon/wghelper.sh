@@ -75,7 +75,9 @@ del_if() {
 	local table
 	[[ $HAVE_SET_DNS -eq 0 ]] || unset_dns
 	[[ $HAVE_SET_FIREWALL -eq 0 ]] || remove_firewall
+	printf "%s: %d" "The value of table is" "$table"
 	if get_fwmark table && [[ $(wg show "$INTERFACE" allowed-ips) =~ /0(\ |$'\n'|$) ]]; then
+		printf "%s: %d" "Now the value of table is" "$table"
 		while [[ $(ip -4 rule show 2>/dev/null) == *"lookup $table"* ]]; do
 			cmd ip -4 rule delete table $table
 		done
@@ -127,9 +129,13 @@ unset_dns() {
 }
 
 get_fwmark() {
+	# This function is used to get the value of "table", which is the value of 
+	# fwmark in, the script. This is necessary because the script is stateless
+	# and so doesn't know what table it ended up using, but we won't need to do this.
 	local fwmark
 	fwmark="$(wg show "$INTERFACE" fwmark)" || return 1
 	[[ -n $fwmark && $fwmark != off ]] || return 1
+	# Set the variable "table" to be the decimal of fwmark
 	printf -v "$1" "%d" "$fwmark"
 	return 0
 }
@@ -160,6 +166,7 @@ HAVE_SET_FIREWALL=0
 add_default() {
 	local table line
 	if ! get_fwmark table; then
+		# Look for a good table number. Don't bother if fwmark doesn't exist.
 		table=51820
 		while [[ -n $(ip -4 route show table $table 2>/dev/null) || -n $(ip -6 route show table $table 2>/dev/null) ]]; do
 			((table++))
@@ -168,6 +175,7 @@ add_default() {
 	fi
 	local proto=-4 iptables=iptables pf=ip
 	[[ $1 == *:* ]] && proto=-6 iptables=ip6tables pf=ip6
+	# See https://www.wireguard.com/netns/#the-classic-solutions "Improved Rule-based Routing" for more details on this
 	cmd ip $proto route add "$1" dev "$INTERFACE" table $table
 	cmd ip $proto rule add not fwmark $table table $table
 	cmd ip $proto rule add table main suppress_prefixlength 0

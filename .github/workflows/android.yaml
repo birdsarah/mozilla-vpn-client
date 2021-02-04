@@ -107,6 +107,12 @@ jobs:
             name: production-release
             path: .tmp/src/android-build/build/outputs/apk/release/
 
+      - name: Upload Debug Symbols
+        uses: actions/upload-artifact@v1
+        with:
+            name: production-release debug-sym
+            path: .tmp/src/android-build/build/intermediates/merged_native_libs/release/out/lib                        
+
   android-staging-debug:
     runs-on: ubuntu-20.04
 

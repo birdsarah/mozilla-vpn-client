@@ -27,6 +27,8 @@ Daemon::~Daemon() { MVPN_COUNT_DTOR(Daemon); }
 bool Daemon::activate(const Config& config) {
   m_lastConfig = config;
 
+  logger.log() << "** in activate 1: m_connected is: " << m_connected;
+
   if (m_connected) {
     if (!deactivate(false)) {
       return false;
@@ -44,6 +46,8 @@ bool Daemon::activate(const Config& config) {
   if (status) {
     emit connected();
   }
+
+  logger.log() << "** in activate 2: m_connected is: " << m_connected;
 
   return status;
 }

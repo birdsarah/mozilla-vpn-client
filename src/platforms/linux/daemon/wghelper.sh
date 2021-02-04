@@ -65,6 +65,8 @@ add_if() {
 
 del_if() {
 	local table
+	printf "Have set DNS: $HAVE_SET_DNS \n"
+	printf "Have set FIREWALL: $HAVE_SET_FIREWALL \n"
 	[[ $HAVE_SET_DNS -eq 0 ]] || unset_dns
 	[[ $HAVE_SET_FIREWALL -eq 0 ]] || remove_firewall
 	if get_fwmark table && [[ $(wg show "$INTERFACE" allowed-ips) =~ /0(\ |$'\n'|$) ]]; then
@@ -81,6 +83,7 @@ del_if() {
 			ip -6 rule delete table main suppress_prefixlength 0
 		done
 	fi
+	printf "Deleting dev $INTERFACE"
 	ip link delete dev "$INTERFACE"
 }
 
@@ -175,9 +178,15 @@ set_config() {
 
 cmd_up() {
 	local i
-	[[ -z $(ip link show dev "$INTERFACE" 2>/dev/null) ]] || die "\`$INTERFACE' already exists"
+	printf "*** WGQUICK - Command Up 1 \n"
+	printf "$(wg show) \n"
 	trap 'del_if; exit' INT TERM EXIT
+	[[ -z $(ip link show dev "$INTERFACE" 2>/dev/null) ]] || die "\`$INTERFACE' already exists"
+	printf "*** WGQUICK - Command Up 2 \n"
+	printf "$(wg show) \n"
 	add_if
+	printf "*** WGQUICK - Command Up 3 \n"
+	printf "$(wg show) \n"
 	set_config
 	for i in "${ADDRESSES[@]}"; do
 		add_addr "$i"
@@ -193,6 +202,8 @@ cmd_up() {
 }
 
 cmd_down() {
+	printf "*** WGQUICK - Command Down \n"
+	printf "$(wg show) \n"
 	[[ " $(wg show interfaces) " == *" $INTERFACE "* ]] || die "\`$INTERFACE' is not a WireGuard interface"
 	del_if
 	unset_dns || true

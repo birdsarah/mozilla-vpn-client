@@ -132,9 +132,17 @@ QString DBusService::getLogs() {
 }
 
 bool DBusService::run(Op op, const Config& config) {
-  logger.log() << "Interface exists:" << wg_helper.interface_exists();
-  logger.log() << "Wireguard devices:"
-               << wg_helper.current_wireguard_devices().join(", ");
+  if (op == Up) {
+    if (wg_helper.interface_exists()) {
+      qWarning("Interface already exists.");
+      // Note: I believe, that the
+      // return false;
+    }
+  }
+  if (op == Down) {
+    logger.log() << "Wireguard devices:"
+                 << wg_helper.current_wireguard_devices().join(", ");
+  }
   return WgQuickProcess::run(
       op, config.m_privateKey, config.m_deviceIpv4Address,
       config.m_deviceIpv6Address, config.m_serverIpv4Gateway,

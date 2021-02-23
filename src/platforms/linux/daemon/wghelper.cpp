@@ -384,6 +384,7 @@ bool WireguardHelper::setMTUAndUp() {
   return true;
 }
 
+/*
 // static
 bool WireguardHelper::setDNS(const Daemon::Config& config) {
   struct ifreq ifr;
@@ -397,7 +398,6 @@ bool WireguardHelper::setDNS(const Daemon::Config& config) {
   }
   int IFRINDEX = ifr.ifr_ifindex;
 
-  /*
   The SetLinkDNS() method sets the DNS servers to use on a specific
   interface. This method (and the following ones) may be used by
   network management software to configure per-interface DNS
@@ -421,8 +421,8 @@ bool WireguardHelper::setDNS(const Daemon::Config& config) {
   4
   8 8 8 8 <- dns ip address
 
-  */
 }
+*/
 
 // static
 bool WireguardHelper::delDevice() {
@@ -436,7 +436,9 @@ bool WireguardHelper::delDevice() {
   return true;
 }
 
+/*
 // static
 bool WireguardHelper::unsetDNS() {
   // Stuff
 }
+*/
